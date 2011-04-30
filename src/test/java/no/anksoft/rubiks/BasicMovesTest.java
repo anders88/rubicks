@@ -15,7 +15,6 @@ import static org.fest.assertions.Assertions.assertThat;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class BasicMovesTest {
@@ -27,7 +26,6 @@ public class BasicMovesTest {
 	}
 	
 	@Test
-	@Ignore
 	public void shouldHaveRedIntoGreenWhenTurningUpside() throws Exception {
 		cube.turnUpClock();
 		
@@ -47,11 +45,29 @@ public class BasicMovesTest {
 		assertUpMove(ORANGE, GREEN, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
 	}
 	
+	/**
+	 * @throws Exception
+	 */
+	/**
+	 * @throws Exception
+	 */
+	/**
+	 * @throws Exception
+	 */
+	/**
+	 * @throws Exception
+	 */
+	/**
+	 * @throws Exception
+	 */
 	@Test
-	@Ignore
 	public void turnUpAntiClockwise() throws Exception {
 		cube.turnUpAnti();
 		
+		assertUpMove(GREEN, ORANGE,UP_LEFT,UP_MIDDLE,UP_RIGHT);
+		assertUpMove(ORANGE, BLUE, UP_LEFT,UP_MIDDLE,UP_RIGHT);
+		assertUpMove(BLUE, RED, UP_LEFT,UP_MIDDLE,UP_RIGHT);
+		assertUpMove(RED, GREEN, UP_LEFT,UP_MIDDLE,UP_RIGHT);
 	}
 
 

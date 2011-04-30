@@ -7,14 +7,22 @@ public class Face {
 
 	private Map<CellPosition, Color> cells = new HashMap<CellPosition, Color>();
 	private Face right;
-	//private Face left;
+	private Face left;
+	private Color color;
+	
+	
+
+	private Face(Color color) {
+		super();
+		this.color = color;
+	}
 
 	public void turnUpClock() {
 		turnUpClock(this);
 	}
 
 	public void turnUpAnti() {
-//		turnUpAnti(this);
+		turnUpAnti(this);
 	}
 
 	public void turnDownClock() {
@@ -33,17 +41,17 @@ public class Face {
 		cells.put(CellPosition.UP_RIGHT, upRight);
 	}
 	
-//	private void turnUpAnti(Face starter) {
-//		Color upLeft = left.cells.get(CellPosition.UP_LEFT);
-//		Color upMiddle = left.cells.get(CellPosition.UP_MIDDLE);
-//		Color upRight = left.cells.get(CellPosition.UP_RIGHT);
-//		
-//		if (left != starter) left.turnUpClock(starter);
-//		
-//		cells.put(CellPosition.UP_LEFT, upLeft);
-//		cells.put(CellPosition.UP_MIDDLE, upMiddle);
-//		cells.put(CellPosition.UP_RIGHT, upRight);
-//	}
+	private void turnUpAnti(Face starter) {
+		Color upLeft = left.cells.get(CellPosition.UP_LEFT);
+		Color upMiddle = left.cells.get(CellPosition.UP_MIDDLE);
+		Color upRight = left.cells.get(CellPosition.UP_RIGHT);
+		
+		if (left != starter) left.turnUpAnti(starter);
+		
+		cells.put(CellPosition.UP_LEFT, upLeft);
+		cells.put(CellPosition.UP_MIDDLE, upMiddle);
+		cells.put(CellPosition.UP_RIGHT, upRight);
+	}
 	
 	private void turnDownClock(Face starter) {
 		Color downLeft = right.cells.get(CellPosition.DOWN_LEFT);
@@ -62,7 +70,7 @@ public class Face {
 	}
 
 	public static Face finished(Color color) {
-		Face face = new Face();
+		Face face = new Face(color);
 		for (CellPosition cellPosition : CellPosition.values()) {
 			face.cells.put(cellPosition, color);
 		}
@@ -71,7 +79,12 @@ public class Face {
 
 	public void setupRight(Face face) {
 		this.right = face;
-		//face.left = this;
+		face.left = this;
+	}
+	
+	@Override
+	public String toString() {
+		return "Face<" + color +">";
 	}
 	
 	
