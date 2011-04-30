@@ -23,10 +23,12 @@ public class Cube {
 	}
 
 	private void setupNeighbours() {
-		faces.get(GREEN).setRight(faces.get(RED));
-		faces.get(RED).setRight(faces.get(BLUE));
-		faces.get(BLUE).setRight(faces.get(ORANGE));
-		faces.get(ORANGE).setRight(faces.get(GREEN));
+		faces.get(GREEN).setupRight(faces.get(RED));
+		faces.get(RED).setupRight(faces.get(BLUE));
+		faces.get(BLUE).setupRight(faces.get(ORANGE));
+		faces.get(ORANGE).setupRight(faces.get(GREEN));
+		
+		
 	}
 
 	public void turnUpClock() {
@@ -35,6 +37,15 @@ public class Cube {
 
 	public Color cell(Color color, CellPosition cellPosition) {
 		return faces.get(color).cell(cellPosition);
+	}
+
+	public void turnDownClock() {
+		refFace.turnDownClock();
+		
+	}
+
+	public void turnUpAnti() {
+		refFace.turnUpAnti();
 	}
 
 }
