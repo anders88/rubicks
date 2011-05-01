@@ -45,21 +45,6 @@ public class BasicMovesTest {
 		assertUpMove(ORANGE, GREEN, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
 	}
 	
-	/**
-	 * @throws Exception
-	 */
-	/**
-	 * @throws Exception
-	 */
-	/**
-	 * @throws Exception
-	 */
-	/**
-	 * @throws Exception
-	 */
-	/**
-	 * @throws Exception
-	 */
 	@Test
 	public void turnUpAntiClockwise() throws Exception {
 		cube.turnUpAnti();
@@ -68,6 +53,16 @@ public class BasicMovesTest {
 		assertUpMove(ORANGE, BLUE, UP_LEFT,UP_MIDDLE,UP_RIGHT);
 		assertUpMove(BLUE, RED, UP_LEFT,UP_MIDDLE,UP_RIGHT);
 		assertUpMove(RED, GREEN, UP_LEFT,UP_MIDDLE,UP_RIGHT);
+	}
+	
+	@Test
+	public void turnDownAntiClockwise() throws Exception {
+		cube.turnDownAnti();
+		
+		assertUpMove(GREEN, ORANGE,DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
+		assertUpMove(ORANGE, BLUE, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
+		assertUpMove(BLUE, RED, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
+		assertUpMove(RED, GREEN, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
 	}
 
 

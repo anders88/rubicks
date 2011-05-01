@@ -25,6 +25,10 @@ public class Face {
 		turnUpAnti(this);
 	}
 
+	public void turnDownAnti() {
+		turnDownAnti(this);
+	}
+
 	public void turnDownClock() {
 		turnDownClock(this);
 	}
@@ -51,6 +55,18 @@ public class Face {
 		cells.put(CellPosition.UP_LEFT, upLeft);
 		cells.put(CellPosition.UP_MIDDLE, upMiddle);
 		cells.put(CellPosition.UP_RIGHT, upRight);
+	}
+	
+	private void turnDownAnti(Face starter) {
+		Color upLeft = left.cells.get(CellPosition.DOWN_LEFT);
+		Color upMiddle = left.cells.get(CellPosition.DOWN_MIDDLE);
+		Color upRight = left.cells.get(CellPosition.DOWN_RIGHT);
+		
+		if (left != starter) left.turnDownAnti(starter);
+		
+		cells.put(CellPosition.DOWN_LEFT, upLeft);
+		cells.put(CellPosition.DOWN_MIDDLE, upMiddle);
+		cells.put(CellPosition.DOWN_RIGHT, upRight);
 	}
 	
 	private void turnDownClock(Face starter) {

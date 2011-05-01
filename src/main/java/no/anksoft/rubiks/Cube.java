@@ -48,4 +48,8 @@ public class Cube {
 		refFace.turnUpAnti();
 	}
 
+	public void turnDownAnti() {
+		refFace.turnDownAnti();
+	}
+
 }
