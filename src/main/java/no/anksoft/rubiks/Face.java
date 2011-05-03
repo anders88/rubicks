@@ -92,6 +92,10 @@ public class Face {
 		}
 		return face;
 	}
+	
+	public void update(CellPosition cellPosition, Color newValue) {
+		cells.put(cellPosition, newValue);
+	}
 
 	public void setupRight(Face face) {
 		this.right = face;

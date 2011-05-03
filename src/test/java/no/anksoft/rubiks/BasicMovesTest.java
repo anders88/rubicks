@@ -5,7 +5,7 @@ import static no.anksoft.rubiks.CellPosition.DOWN_MIDDLE;
 import static no.anksoft.rubiks.CellPosition.DOWN_RIGHT;
 import static no.anksoft.rubiks.CellPosition.UP_LEFT;
 import static no.anksoft.rubiks.CellPosition.UP_MIDDLE;
-import static no.anksoft.rubiks.CellPosition.UP_RIGHT;
+import static no.anksoft.rubiks.CellPosition.*;
 import static no.anksoft.rubiks.Color.*;
 import static no.anksoft.rubiks.Color.GREEN;
 import static no.anksoft.rubiks.Color.ORANGE;
@@ -69,7 +69,10 @@ public class BasicMovesTest {
 	public void turnRightClockwise() throws Exception {
 		cube.turnRightClock();
 		
-		//assertMove(GREEN)
+		assertMove(GREEN,YELLOW,UP_RIGHT,RIGHT,DOWN_RIGHT);
+		assertMove(WHITE,GREEN,UP_RIGHT,RIGHT,DOWN_RIGHT);
+		assertMove(BLUE,WHITE,UP_LEFT,LEFT,DOWN_LEFT);
+		assertMove(YELLOW,BLUE,UP_RIGHT,RIGHT,DOWN_RIGHT);
 	}
 
 

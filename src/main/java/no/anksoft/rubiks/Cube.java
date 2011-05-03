@@ -1,7 +1,7 @@
 package no.anksoft.rubiks;
 
-import static no.anksoft.rubiks.Color.GREEN;
 import static no.anksoft.rubiks.Color.*;
+import static no.anksoft.rubiks.CellPosition.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ import java.util.Map;
 public class Cube {
 	
 	private Map<Color, Face> faces = new HashMap<Color, Face>();
-	private Face refFace;
+	private Face greenFace;
 
 	public static Cube finished() {
 		Cube cube = new Cube();
@@ -18,7 +18,7 @@ public class Cube {
 			cube.faces.put(color,face);
 		}
 		cube.setupNeighbours();
-		cube.refFace = cube.faces.get(GREEN);
+		cube.greenFace = cube.faces.get(GREEN);
 		return cube;
 	}
 
@@ -32,7 +32,7 @@ public class Cube {
 	}
 
 	public void turnUpClock() {
-		refFace.turnUpClock();
+		greenFace.turnUpClock();
 	}
 
 	public Color cell(Color color, CellPosition cellPosition) {
@@ -40,21 +40,43 @@ public class Cube {
 	}
 
 	public void turnDownClock() {
-		refFace.turnDownClock();
+		greenFace.turnDownClock();
 		
 	}
 
 	public void turnUpAnti() {
-		refFace.turnUpAnti();
+		greenFace.turnUpAnti();
 	}
 
 	public void turnDownAnti() {
-		refFace.turnDownAnti();
+		greenFace.turnDownAnti();
 	}
 
 	public void turnRightClock() {
-		// TODO Auto-generated method stub
+		Color greenUpRight = greenFace.cell(UP_RIGHT);
+		Color greenRight = greenFace.cell(RIGHT);
+		Color greenDownRight = greenFace.cell(DOWN_RIGHT);
+
+		update(YELLOW, UP_RIGHT,GREEN, UP_RIGHT);
+		update(YELLOW, RIGHT,GREEN, RIGHT);
+		update(YELLOW, DOWN_RIGHT,GREEN, DOWN_RIGHT);
 		
+		update(BLUE, DOWN_LEFT, YELLOW, UP_RIGHT);
+		update(BLUE, LEFT, YELLOW, RIGHT);
+		update(BLUE, UP_LEFT, YELLOW, DOWN_RIGHT);
+		
+		update(WHITE, UP_RIGHT, BLUE, DOWN_LEFT);
+		update(WHITE, RIGHT,BLUE, LEFT);
+		update(WHITE, DOWN_RIGHT, BLUE, UP_LEFT);
+
+		faces.get(WHITE).update(UP_RIGHT, greenUpRight);
+		faces.get(WHITE).update(RIGHT, greenRight);
+		faces.get(WHITE).update(DOWN_RIGHT, greenDownRight);
+	}
+
+	private void update(Color from, CellPosition cellPositionFrom, Color to,
+			CellPosition cellPositionTo) {
+		faces.get(to).update(cellPositionTo, faces.get(from).cell(cellPositionFrom));
 	}
 
 }
