@@ -52,4 +52,9 @@ public class Cube {
 		refFace.turnDownAnti();
 	}
 
+	public void turnRightClock() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -6,7 +6,7 @@ import static no.anksoft.rubiks.CellPosition.DOWN_RIGHT;
 import static no.anksoft.rubiks.CellPosition.UP_LEFT;
 import static no.anksoft.rubiks.CellPosition.UP_MIDDLE;
 import static no.anksoft.rubiks.CellPosition.UP_RIGHT;
-import static no.anksoft.rubiks.Color.BLUE;
+import static no.anksoft.rubiks.Color.*;
 import static no.anksoft.rubiks.Color.GREEN;
 import static no.anksoft.rubiks.Color.ORANGE;
 import static no.anksoft.rubiks.Color.RED;
@@ -29,44 +29,51 @@ public class BasicMovesTest {
 	public void shouldHaveRedIntoGreenWhenTurningUpside() throws Exception {
 		cube.turnUpClock();
 		
-		assertUpMove(GREEN, RED,UP_LEFT,UP_MIDDLE,UP_RIGHT);
-		assertUpMove(RED, BLUE, UP_LEFT,UP_MIDDLE,UP_RIGHT);
-		assertUpMove(BLUE, ORANGE, UP_LEFT,UP_MIDDLE,UP_RIGHT);
-		assertUpMove(ORANGE, GREEN, UP_LEFT,UP_MIDDLE,UP_RIGHT);
+		assertMove(GREEN, RED,UP_LEFT,UP_MIDDLE,UP_RIGHT);
+		assertMove(RED, BLUE, UP_LEFT,UP_MIDDLE,UP_RIGHT);
+		assertMove(BLUE, ORANGE, UP_LEFT,UP_MIDDLE,UP_RIGHT);
+		assertMove(ORANGE, GREEN, UP_LEFT,UP_MIDDLE,UP_RIGHT);
 	}
 	
 	@Test
 	public void shouldHaveRedIntoGreenWhenTurningDownside() throws Exception {
 		cube.turnDownClock();
 		
-		assertUpMove(GREEN, RED,DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
-		assertUpMove(RED, BLUE, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
-		assertUpMove(BLUE, ORANGE, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
-		assertUpMove(ORANGE, GREEN, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
+		assertMove(GREEN, RED,DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
+		assertMove(RED, BLUE, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
+		assertMove(BLUE, ORANGE, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
+		assertMove(ORANGE, GREEN, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
 	}
 	
 	@Test
 	public void turnUpAntiClockwise() throws Exception {
 		cube.turnUpAnti();
 		
-		assertUpMove(GREEN, ORANGE,UP_LEFT,UP_MIDDLE,UP_RIGHT);
-		assertUpMove(ORANGE, BLUE, UP_LEFT,UP_MIDDLE,UP_RIGHT);
-		assertUpMove(BLUE, RED, UP_LEFT,UP_MIDDLE,UP_RIGHT);
-		assertUpMove(RED, GREEN, UP_LEFT,UP_MIDDLE,UP_RIGHT);
+		assertMove(GREEN, ORANGE,UP_LEFT,UP_MIDDLE,UP_RIGHT);
+		assertMove(ORANGE, BLUE, UP_LEFT,UP_MIDDLE,UP_RIGHT);
+		assertMove(BLUE, RED, UP_LEFT,UP_MIDDLE,UP_RIGHT);
+		assertMove(RED, GREEN, UP_LEFT,UP_MIDDLE,UP_RIGHT);
 	}
 	
 	@Test
 	public void turnDownAntiClockwise() throws Exception {
 		cube.turnDownAnti();
 		
-		assertUpMove(GREEN, ORANGE,DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
-		assertUpMove(ORANGE, BLUE, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
-		assertUpMove(BLUE, RED, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
-		assertUpMove(RED, GREEN, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
+		assertMove(GREEN, ORANGE,DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
+		assertMove(ORANGE, BLUE, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
+		assertMove(BLUE, RED, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
+		assertMove(RED, GREEN, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
+	}
+	
+	@Test
+	public void turnRightClockwise() throws Exception {
+		cube.turnRightClock();
+		
+		//assertMove(GREEN)
 	}
 
 
-	private void assertUpMove(Color baseSide, Color expectedColor,CellPosition... cellPositionsExpectionNew) {
+	private void assertMove(Color baseSide, Color expectedColor,CellPosition... cellPositionsExpectionNew) {
 		List<CellPosition> expNew = Arrays.asList(cellPositionsExpectionNew);
 		for (CellPosition cellPosition : CellPosition.values()) {
 			Color expected = expNew.contains(cellPosition) ? expectedColor : baseSide;
