@@ -76,7 +76,7 @@ public class Cube {
 
 	private void update(Color from, CellPosition cellPositionFrom, Color to,
 			CellPosition cellPositionTo) {
-		faces.get(to).update(cellPositionTo, faces.get(from).cell(cellPositionFrom));
+		faces.get(to).update(cellPositionTo , faces.get(from).cell(cellPositionFrom));
 	}
 
 }
