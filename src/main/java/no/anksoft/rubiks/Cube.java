@@ -74,12 +74,7 @@ public class Cube {
 		faces.get(WHITE).update(DOWN_RIGHT, greenDownRight);
 	}
 
-	private void update(Color from, CellPosition cellPositionFrom, Color to,
-			CellPosition cellPositionTo) {
-		faces.get(to).update(cellPositionTo , faces.get(from).cell(cellPositionFrom));
-	}
-
-	public void turnRightAntiClock() {
+	public void turnRightAnti() {
 		Color greenUpRight = greenFace.cell(UP_RIGHT);
 		Color greenRight = greenFace.cell(RIGHT);
 		Color greenDownRight = greenFace.cell(DOWN_RIGHT);
@@ -99,6 +94,35 @@ public class Cube {
 		faces.get(YELLOW).update(UP_RIGHT, greenUpRight);
 		faces.get(YELLOW).update(RIGHT, greenRight);
 		faces.get(YELLOW).update(DOWN_RIGHT, greenDownRight);
+	}
+
+	public void turnLeftClock() {
+		Color greenUpLeft = greenFace.cell(UP_LEFT);
+		Color greenLeft = greenFace.cell(LEFT);
+		Color greenDownLeft = greenFace.cell(DOWN_LEFT);
+		
+		update(WHITE,UP_LEFT,GREEN,UP_LEFT);
+		update(WHITE,LEFT,GREEN,LEFT);
+		update(WHITE,DOWN_LEFT,GREEN,DOWN_LEFT);
+		
+		update(BLUE, UP_RIGHT, WHITE, DOWN_LEFT);
+		update(BLUE, RIGHT, WHITE, LEFT);
+		update(BLUE, DOWN_RIGHT, WHITE, UP_LEFT);
+		
+		update(YELLOW, UP_LEFT, BLUE, DOWN_RIGHT);
+		update(YELLOW, LEFT, BLUE, RIGHT);
+		update(YELLOW, DOWN_LEFT, BLUE, UP_RIGHT);
+		
+		faces.get(YELLOW).update(UP_LEFT, greenUpLeft);
+		faces.get(YELLOW).update(LEFT, greenLeft);
+		faces.get(YELLOW).update(DOWN_LEFT, greenDownLeft);
+
+	}
+
+	private void update(Color from, CellPosition cellPositionFrom, Color to,
+			CellPosition cellPositionTo) {
+		Color fromValue = faces.get(from).cell(cellPositionFrom);
+		faces.get(to).update(cellPositionTo , fromValue);
 	}
 
 }

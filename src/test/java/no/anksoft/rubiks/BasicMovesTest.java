@@ -77,13 +77,26 @@ public class BasicMovesTest {
 	
 	@Test
 	public void turnRightAntiClockWise() throws Exception {
-		cube.turnRightAntiClock();
+		cube.turnRightAnti();
 		
 		assertMove(GREEN,WHITE,UP_RIGHT,RIGHT,DOWN_RIGHT);
 		assertMove(WHITE,BLUE,UP_RIGHT,RIGHT,DOWN_RIGHT);
 		assertMove(BLUE,YELLOW,UP_LEFT,LEFT,DOWN_LEFT);
 		assertMove(YELLOW,GREEN,UP_RIGHT,RIGHT,DOWN_RIGHT);
 	}
+	
+	@Test
+	public void turnLeftClockWise() throws Exception {
+		cube.turnLeftClock();
+		
+		assertMove(GREEN,WHITE,UP_LEFT,LEFT, DOWN_LEFT);
+		assertMove(WHITE,BLUE, UP_LEFT,LEFT, DOWN_LEFT);
+		assertMove(BLUE,YELLOW,UP_RIGHT,RIGHT, DOWN_RIGHT);
+		assertMove(YELLOW,GREEN,UP_LEFT,LEFT, DOWN_LEFT);
+	}
+	
+	
+	
 
 
 	private void assertMove(Color baseSide, Color expectedColor,CellPosition... cellPositionsExpectionNew) {
