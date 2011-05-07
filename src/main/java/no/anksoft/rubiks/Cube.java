@@ -79,4 +79,26 @@ public class Cube {
 		faces.get(to).update(cellPositionTo , faces.get(from).cell(cellPositionFrom));
 	}
 
+	public void turnRightAntiClock() {
+		Color greenUpRight = greenFace.cell(UP_RIGHT);
+		Color greenRight = greenFace.cell(RIGHT);
+		Color greenDownRight = greenFace.cell(DOWN_RIGHT);
+		
+		update(WHITE,UP_RIGHT,GREEN,UP_RIGHT);
+		update(WHITE,RIGHT,GREEN,RIGHT);
+		update(WHITE,DOWN_RIGHT,GREEN,DOWN_RIGHT);
+		
+		update(BLUE, DOWN_LEFT, WHITE, UP_RIGHT);
+		update(BLUE, LEFT, WHITE, RIGHT);
+		update(BLUE, UP_LEFT, WHITE, DOWN_RIGHT);
+		
+		update(YELLOW, UP_RIGHT, BLUE, DOWN_LEFT);
+		update(YELLOW, RIGHT,BLUE, LEFT);
+		update(YELLOW, DOWN_RIGHT, BLUE, UP_LEFT);
+		
+		faces.get(YELLOW).update(UP_RIGHT, greenUpRight);
+		faces.get(YELLOW).update(RIGHT, greenRight);
+		faces.get(YELLOW).update(DOWN_RIGHT, greenDownRight);
+	}
+
 }
