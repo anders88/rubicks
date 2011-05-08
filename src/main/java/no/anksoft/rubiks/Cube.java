@@ -62,6 +62,10 @@ public class Cube {
 		doMove(new FaceMove(GREEN,RIGHT),new FaceMove(WHITE,RIGHT),new FaceMove(BLUE,LEFT),new FaceMove(YELLOW,RIGHT));
 	}
 
+	public void turnLeftClock() {
+		doMove(new FaceMove(GREEN,LEFT),new FaceMove(WHITE,LEFT),new FaceMove(BLUE,RIGHT),new FaceMove(YELLOW,LEFT));
+	}
+
 	private void doMove(FaceMove... faceMoves) {
 		FaceMove firstMove = faceMoves[0];
 		List<Color> firstSideColors = copyFrom(firstMove);
@@ -88,35 +92,6 @@ public class Cube {
 			result.add(face.cell(cellPosition));
 		}
 		return result;
-	}
-
-	public void turnLeftClock() {
-		Color greenUpLeft = greenFace.cell(UP_LEFT);
-		Color greenLeft = greenFace.cell(LEFT);
-		Color greenDownLeft = greenFace.cell(DOWN_LEFT);
-		
-		update(WHITE,UP_LEFT,GREEN,UP_LEFT);
-		update(WHITE,LEFT,GREEN,LEFT);
-		update(WHITE,DOWN_LEFT,GREEN,DOWN_LEFT);
-		
-		update(BLUE, UP_RIGHT, WHITE, DOWN_LEFT);
-		update(BLUE, RIGHT, WHITE, LEFT);
-		update(BLUE, DOWN_RIGHT, WHITE, UP_LEFT);
-		
-		update(YELLOW, UP_LEFT, BLUE, DOWN_RIGHT);
-		update(YELLOW, LEFT, BLUE, RIGHT);
-		update(YELLOW, DOWN_LEFT, BLUE, UP_RIGHT);
-		
-		faces.get(YELLOW).update(UP_LEFT, greenUpLeft);
-		faces.get(YELLOW).update(LEFT, greenLeft);
-		faces.get(YELLOW).update(DOWN_LEFT, greenDownLeft);
-
-	}
-
-	private void update(Color from, CellPosition cellPositionFrom, Color to,
-			CellPosition cellPositionTo) {
-		Color fromValue = faces.get(from).cell(cellPositionFrom);
-		faces.get(to).update(cellPositionTo , fromValue);
 	}
 
 }
