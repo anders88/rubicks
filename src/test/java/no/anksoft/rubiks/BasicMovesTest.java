@@ -29,88 +29,130 @@ public class BasicMovesTest {
 	public void shouldHaveRedIntoGreenWhenTurningUpside() throws Exception {
 		cube.turnUpClock();
 		
-		assertMove(GREEN, RED,UP_LEFT,UP_MIDDLE,UP_RIGHT);
-		assertMove(RED, BLUE, UP_LEFT,UP_MIDDLE,UP_RIGHT);
-		assertMove(BLUE, ORANGE, UP_LEFT,UP_MIDDLE,UP_RIGHT);
-		assertMove(ORANGE, GREEN, UP_LEFT,UP_MIDDLE,UP_RIGHT);
+		assertFaceContent(GREEN, RED,UP_LEFT,UP_MIDDLE,UP_RIGHT);
+		assertFaceContent(RED, BLUE, UP_LEFT,UP_MIDDLE,UP_RIGHT);
+		assertFaceContent(BLUE, ORANGE, UP_LEFT,UP_MIDDLE,UP_RIGHT);
+		assertFaceContent(ORANGE, GREEN, UP_LEFT,UP_MIDDLE,UP_RIGHT);
 	}
 	
 	@Test
 	public void shouldHaveRedIntoGreenWhenTurningDownside() throws Exception {
 		cube.turnDownClock();
 		
-		assertMove(GREEN, RED,DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
-		assertMove(RED, BLUE, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
-		assertMove(BLUE, ORANGE, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
-		assertMove(ORANGE, GREEN, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
+		assertFaceContent(GREEN, RED,DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
+		assertFaceContent(RED, BLUE, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
+		assertFaceContent(BLUE, ORANGE, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
+		assertFaceContent(ORANGE, GREEN, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
 	}
 	
 	@Test
 	public void turnUpAntiClockwise() throws Exception {
 		cube.turnUpAnti();
 		
-		assertMove(GREEN, ORANGE,UP_LEFT,UP_MIDDLE,UP_RIGHT);
-		assertMove(ORANGE, BLUE, UP_LEFT,UP_MIDDLE,UP_RIGHT);
-		assertMove(BLUE, RED, UP_LEFT,UP_MIDDLE,UP_RIGHT);
-		assertMove(RED, GREEN, UP_LEFT,UP_MIDDLE,UP_RIGHT);
+		assertFaceContent(GREEN, ORANGE,UP_LEFT,UP_MIDDLE,UP_RIGHT);
+		assertFaceContent(ORANGE, BLUE, UP_LEFT,UP_MIDDLE,UP_RIGHT);
+		assertFaceContent(BLUE, RED, UP_LEFT,UP_MIDDLE,UP_RIGHT);
+		assertFaceContent(RED, GREEN, UP_LEFT,UP_MIDDLE,UP_RIGHT);
 	}
 	
 	@Test
 	public void turnDownAntiClockwise() throws Exception {
 		cube.turnDownAnti();
 		
-		assertMove(GREEN, ORANGE,DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
-		assertMove(ORANGE, BLUE, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
-		assertMove(BLUE, RED, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
-		assertMove(RED, GREEN, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
+		assertFaceContent(GREEN, ORANGE,DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
+		assertFaceContent(ORANGE, BLUE, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
+		assertFaceContent(BLUE, RED, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
+		assertFaceContent(RED, GREEN, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
 	}
 	
 	@Test
 	public void turnRightClockwise() throws Exception {
 		cube.turnRightClock();
 		
-		assertMove(GREEN,YELLOW,UP_RIGHT,RIGHT,DOWN_RIGHT);
-		assertMove(WHITE,GREEN,UP_RIGHT,RIGHT,DOWN_RIGHT);
-		assertMove(BLUE,WHITE,UP_LEFT,LEFT,DOWN_LEFT);
-		assertMove(YELLOW,BLUE,UP_RIGHT,RIGHT,DOWN_RIGHT);
+		assertFaceContent(GREEN,YELLOW,UP_RIGHT,RIGHT,DOWN_RIGHT);
+		assertFaceContent(WHITE,GREEN,UP_RIGHT,RIGHT,DOWN_RIGHT);
+		assertFaceContent(BLUE,WHITE,UP_LEFT,LEFT,DOWN_LEFT);
+		assertFaceContent(YELLOW,BLUE,UP_RIGHT,RIGHT,DOWN_RIGHT);
 	}
 	
 	@Test
 	public void turnRightAntiClockWise() throws Exception {
 		cube.turnRightAnti();
 		
-		assertMove(GREEN,WHITE,UP_RIGHT,RIGHT,DOWN_RIGHT);
-		assertMove(WHITE,BLUE,UP_RIGHT,RIGHT,DOWN_RIGHT);
-		assertMove(BLUE,YELLOW,UP_LEFT,LEFT,DOWN_LEFT);
-		assertMove(YELLOW,GREEN,UP_RIGHT,RIGHT,DOWN_RIGHT);
+		assertFaceContent(GREEN,WHITE,UP_RIGHT,RIGHT,DOWN_RIGHT);
+		assertFaceContent(WHITE,BLUE,UP_RIGHT,RIGHT,DOWN_RIGHT);
+		assertFaceContent(BLUE,YELLOW,UP_LEFT,LEFT,DOWN_LEFT);
+		assertFaceContent(YELLOW,GREEN,UP_RIGHT,RIGHT,DOWN_RIGHT);
 	}
 	
 	@Test
 	public void turnLeftClockWise() throws Exception {
 		cube.turnLeftClock();
 		
-		assertMove(GREEN,WHITE,UP_LEFT,LEFT, DOWN_LEFT);
-		assertMove(WHITE,BLUE, UP_LEFT,LEFT, DOWN_LEFT);
-		assertMove(BLUE,YELLOW,UP_RIGHT,RIGHT, DOWN_RIGHT);
-		assertMove(YELLOW,GREEN,UP_LEFT,LEFT, DOWN_LEFT);
+		assertFaceContent(GREEN,WHITE,UP_LEFT,LEFT, DOWN_LEFT);
+		assertFaceContent(WHITE,BLUE, UP_LEFT,LEFT, DOWN_LEFT);
+		assertFaceContent(BLUE,YELLOW,UP_RIGHT,RIGHT, DOWN_RIGHT);
+		assertFaceContent(YELLOW,GREEN,UP_LEFT,LEFT, DOWN_LEFT);
 	}
 	
 	@Test
 	public void turnLeftAntiClockWise() throws Exception {
 		cube.turnLeftAnti();
 		
-		assertMove(GREEN,YELLOW,UP_LEFT,LEFT, DOWN_LEFT);
-		assertMove(WHITE,GREEN,UP_LEFT,LEFT, DOWN_LEFT);
-		assertMove(BLUE,WHITE,UP_RIGHT,RIGHT, DOWN_RIGHT);
-		assertMove(YELLOW,BLUE,UP_LEFT,LEFT, DOWN_LEFT);
+		assertFaceContent(GREEN,YELLOW,UP_LEFT,LEFT, DOWN_LEFT);
+		assertFaceContent(WHITE,GREEN,UP_LEFT,LEFT, DOWN_LEFT);
+		assertFaceContent(BLUE,WHITE,UP_RIGHT,RIGHT, DOWN_RIGHT);
+		assertFaceContent(YELLOW,BLUE,UP_LEFT,LEFT, DOWN_LEFT);
 		
 	}
 	
 	
-	
+	@Test
+	public void twoMovesTest() throws Exception {
+		cube.turnRightClock();
+		cube.turnUpClock();
+
+		assertThat(cube.cell(GREEN, UP_LEFT)).isEqualTo(RED);
+		assertThat(cube.cell(GREEN, LEFT)).isEqualTo(GREEN);
+		assertThat(cube.cell(GREEN, DOWN_LEFT)).isEqualTo(GREEN);
+		assertThat(cube.cell(GREEN, UP_MIDDLE)).isEqualTo(RED);
+		assertThat(cube.cell(GREEN, DOWN_MIDDLE)).isEqualTo(GREEN);
+		assertThat(cube.cell(GREEN, UP_RIGHT)).isEqualTo(RED);
+		assertThat(cube.cell(GREEN, RIGHT)).isEqualTo(YELLOW);
+		assertThat(cube.cell(GREEN, DOWN_RIGHT)).isEqualTo(YELLOW);
+
+		assertThat(cube.cell(RED, UP_LEFT)).isEqualTo(WHITE);
+		assertThat(cube.cell(RED, LEFT)).isEqualTo(RED);
+		assertThat(cube.cell(RED, DOWN_LEFT)).isEqualTo(RED);
+		assertThat(cube.cell(RED, UP_MIDDLE)).isEqualTo(BLUE);
+		assertThat(cube.cell(RED, DOWN_MIDDLE)).isEqualTo(RED);
+		assertThat(cube.cell(RED, UP_RIGHT)).isEqualTo(BLUE);
+		assertThat(cube.cell(RED, RIGHT)).isEqualTo(RED);
+		assertThat(cube.cell(RED, DOWN_RIGHT)).isEqualTo(RED);
+		
+		assertThat(cube.cell(BLUE, UP_LEFT)).isEqualTo(ORANGE);
+		assertThat(cube.cell(BLUE, LEFT)).isEqualTo(WHITE);
+		assertThat(cube.cell(BLUE, DOWN_LEFT)).isEqualTo(WHITE);
+		assertThat(cube.cell(BLUE, UP_MIDDLE)).isEqualTo(ORANGE);
+		assertThat(cube.cell(BLUE, DOWN_MIDDLE)).isEqualTo(BLUE);
+		assertThat(cube.cell(BLUE, UP_RIGHT)).isEqualTo(ORANGE);
+		assertThat(cube.cell(BLUE, RIGHT)).isEqualTo(BLUE);
+		assertThat(cube.cell(BLUE, DOWN_RIGHT)).isEqualTo(BLUE);
+		
+		assertThat(cube.cell(ORANGE, UP_LEFT)).isEqualTo(GREEN);
+		assertThat(cube.cell(ORANGE, LEFT)).isEqualTo(ORANGE);
+		assertThat(cube.cell(ORANGE, DOWN_LEFT)).isEqualTo(ORANGE);
+		assertThat(cube.cell(ORANGE, UP_MIDDLE)).isEqualTo(GREEN);
+		assertThat(cube.cell(ORANGE, DOWN_MIDDLE)).isEqualTo(ORANGE);
+		assertThat(cube.cell(ORANGE, UP_RIGHT)).isEqualTo(YELLOW);
+		assertThat(cube.cell(ORANGE, RIGHT)).isEqualTo(ORANGE);
+		assertThat(cube.cell(ORANGE, DOWN_RIGHT)).isEqualTo(ORANGE);
+
+		assertFaceContent(YELLOW, BLUE, UP_RIGHT,RIGHT,DOWN_RIGHT);
+	}
 
 
-	private void assertMove(Color baseSide, Color expectedColor,CellPosition... cellPositionsExpectionNew) {
+	private void assertFaceContent(Color baseSide, Color expectedColor,CellPosition... cellPositionsExpectionNew) {
 		List<CellPosition> expNew = Arrays.asList(cellPositionsExpectionNew);
 		for (CellPosition cellPosition : CellPosition.values()) {
 			Color expected = expNew.contains(cellPosition) ? expectedColor : baseSide;
