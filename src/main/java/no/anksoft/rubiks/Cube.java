@@ -3,7 +3,9 @@ package no.anksoft.rubiks;
 import static no.anksoft.rubiks.Color.*;
 import static no.anksoft.rubiks.CellPosition.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Cube {
@@ -53,25 +55,35 @@ public class Cube {
 	}
 
 	public void turnRightClock() {
-		Color greenUpRight = greenFace.cell(UP_RIGHT);
-		Color greenRight = greenFace.cell(RIGHT);
-		Color greenDownRight = greenFace.cell(DOWN_RIGHT);
+		doMove(new FaceMove(GREEN,RIGHT),new FaceMove(YELLOW,RIGHT), new FaceMove(BLUE,LEFT), new FaceMove(WHITE,RIGHT));
+	}
 
-		update(YELLOW, UP_RIGHT,GREEN, UP_RIGHT);
-		update(YELLOW, RIGHT,GREEN, RIGHT);
-		update(YELLOW, DOWN_RIGHT,GREEN, DOWN_RIGHT);
+	private void doMove(FaceMove... faceMoves) {
+		FaceMove firstMove = faceMoves[0];
+		List<Color> firstSideColors = copyFrom(firstMove);
+		for (int num = 1; num < faceMoves.length; num++) {
+			List<Color> fromColors = copyFrom(faceMoves[num]);
+			FaceMove toFaceMove = faceMoves[num-1];
+			copyColorsToFace(fromColors, toFaceMove);
+		}
+		copyColorsToFace(firstSideColors, faceMoves[faceMoves.length-1]);
 		
-		update(BLUE, DOWN_LEFT, YELLOW, UP_RIGHT);
-		update(BLUE, LEFT, YELLOW, RIGHT);
-		update(BLUE, UP_LEFT, YELLOW, DOWN_RIGHT);
-		
-		update(WHITE, UP_RIGHT, BLUE, DOWN_LEFT);
-		update(WHITE, RIGHT,BLUE, LEFT);
-		update(WHITE, DOWN_RIGHT, BLUE, UP_LEFT);
+	}
 
-		faces.get(WHITE).update(UP_RIGHT, greenUpRight);
-		faces.get(WHITE).update(RIGHT, greenRight);
-		faces.get(WHITE).update(DOWN_RIGHT, greenDownRight);
+	private void copyColorsToFace(List<Color> fromColors, FaceMove toFaceMove) {
+		Face toFace = faces.get(toFaceMove.getColor());
+		for (int i=0;i<3;i++) {
+			toFace.update(toFaceMove.positions().get(i), fromColors.get(i));
+		}
+	}
+
+	private List<Color> copyFrom(FaceMove firstMove) {
+		List<Color> result = new ArrayList<Color>();
+		Face face = faces.get(firstMove.getColor());
+		for (CellPosition cellPosition : firstMove.positions()) {
+			result.add(face.cell(cellPosition));
+		}
+		return result;
 	}
 
 	public void turnRightAnti() {
