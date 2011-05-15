@@ -108,7 +108,7 @@ public class BasicMovesTest {
 	
 	@Test
 	public void turnFrontClockWise() throws Exception {
-		cube.turnFrontClockWise();
+		cube.turnFrontClock();
 		
 		assertFaceContent(GREEN, GREEN);
 		
@@ -134,7 +134,7 @@ public class BasicMovesTest {
 	
 	@Test
 	public void turnBackClockwise() throws Exception {
-		cube.turnBackClockWise();
+		cube.turnBackClock();
 		
 		assertFaceContent(GREEN, GREEN);
 		assertFaceContent(BLUE, BLUE);
@@ -160,51 +160,6 @@ public class BasicMovesTest {
 		
 	}
 	
-	
-	@Test
-	public void twoMovesTest() throws Exception {
-		cube.turnRightClock();
-		cube.turnUpClock();
-
-		assertThat(cube.cell(GREEN, UP_LEFT)).isEqualTo(RED);
-		assertThat(cube.cell(GREEN, LEFT)).isEqualTo(GREEN);
-		assertThat(cube.cell(GREEN, DOWN_LEFT)).isEqualTo(GREEN);
-		assertThat(cube.cell(GREEN, UP_MIDDLE)).isEqualTo(RED);
-		assertThat(cube.cell(GREEN, DOWN_MIDDLE)).isEqualTo(GREEN);
-		assertThat(cube.cell(GREEN, UP_RIGHT)).isEqualTo(RED);
-		assertThat(cube.cell(GREEN, RIGHT)).isEqualTo(YELLOW);
-		assertThat(cube.cell(GREEN, DOWN_RIGHT)).isEqualTo(YELLOW);
-
-		assertThat(cube.cell(RED, UP_LEFT)).isEqualTo(WHITE);
-		assertThat(cube.cell(RED, LEFT)).isEqualTo(RED);
-		assertThat(cube.cell(RED, DOWN_LEFT)).isEqualTo(RED);
-		assertThat(cube.cell(RED, UP_MIDDLE)).isEqualTo(BLUE);
-		assertThat(cube.cell(RED, DOWN_MIDDLE)).isEqualTo(RED);
-		assertThat(cube.cell(RED, UP_RIGHT)).isEqualTo(BLUE);
-		assertThat(cube.cell(RED, RIGHT)).isEqualTo(RED);
-		assertThat(cube.cell(RED, DOWN_RIGHT)).isEqualTo(RED);
-		
-		assertThat(cube.cell(BLUE, UP_LEFT)).isEqualTo(ORANGE);
-		assertThat(cube.cell(BLUE, LEFT)).isEqualTo(WHITE);
-		assertThat(cube.cell(BLUE, DOWN_LEFT)).isEqualTo(WHITE);
-		assertThat(cube.cell(BLUE, UP_MIDDLE)).isEqualTo(ORANGE);
-		assertThat(cube.cell(BLUE, DOWN_MIDDLE)).isEqualTo(BLUE);
-		assertThat(cube.cell(BLUE, UP_RIGHT)).isEqualTo(ORANGE);
-		assertThat(cube.cell(BLUE, RIGHT)).isEqualTo(BLUE);
-		assertThat(cube.cell(BLUE, DOWN_RIGHT)).isEqualTo(BLUE);
-		
-		assertThat(cube.cell(ORANGE, UP_LEFT)).isEqualTo(GREEN);
-		assertThat(cube.cell(ORANGE, LEFT)).isEqualTo(ORANGE);
-		assertThat(cube.cell(ORANGE, DOWN_LEFT)).isEqualTo(ORANGE);
-		assertThat(cube.cell(ORANGE, UP_MIDDLE)).isEqualTo(GREEN);
-		assertThat(cube.cell(ORANGE, DOWN_MIDDLE)).isEqualTo(ORANGE);
-		assertThat(cube.cell(ORANGE, UP_RIGHT)).isEqualTo(YELLOW);
-		assertThat(cube.cell(ORANGE, RIGHT)).isEqualTo(ORANGE);
-		assertThat(cube.cell(ORANGE, DOWN_RIGHT)).isEqualTo(ORANGE);
-
-		assertFaceContent(YELLOW, BLUE, UP_RIGHT,RIGHT,DOWN_RIGHT);
-	}
-
 
 	private void assertFaceContent(Color baseSide, Color expectedColor,CellPosition... cellPositionsExpectionNew) {
 		List<CellPosition> expNew = Arrays.asList(cellPositionsExpectionNew);
