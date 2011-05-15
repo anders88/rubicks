@@ -27,6 +27,10 @@ public class FaceMove {
 			return Arrays.asList(CellPosition.UP_RIGHT,CellPosition.RIGHT,CellPosition.DOWN_RIGHT);
 		case LEFT:
 			return Arrays.asList(CellPosition.DOWN_LEFT,CellPosition.LEFT,CellPosition.UP_LEFT);
+		case DOWN_MIDDLE:
+			return Arrays.asList(CellPosition.DOWN_RIGHT,CellPosition.DOWN_MIDDLE,CellPosition.DOWN_LEFT);
+		case UP_MIDDLE:
+			return Arrays.asList(CellPosition.UP_LEFT,CellPosition.UP_MIDDLE,CellPosition.UP_RIGHT);
 		default:
 			throw new IllegalArgumentException("Not supported " + cellPosition);
 		}
