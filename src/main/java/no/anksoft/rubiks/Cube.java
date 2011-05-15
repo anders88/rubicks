@@ -76,6 +76,10 @@ public class Cube {
 		
 	}
 
+	public void turnFrontAnti() {
+		doMove(new FaceMove(WHITE,DOWN_MIDDLE),new FaceMove(RED,LEFT),new FaceMove(YELLOW,UP_MIDDLE),new FaceMove(ORANGE,RIGHT));
+	}
+
 	private void doMove(FaceMove... faceMoves) {
 		FaceMove firstMove = faceMoves[0];
 		List<Color> firstSideColors = copyFrom(firstMove);
