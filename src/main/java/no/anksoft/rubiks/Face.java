@@ -106,6 +106,10 @@ public class Face {
 	public String toString() {
 		return "Face<" + color +">";
 	}
+
+	public void rotateClockwise() {
+		
+	}
 	
 	
 

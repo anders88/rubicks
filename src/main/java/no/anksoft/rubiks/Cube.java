@@ -23,6 +23,12 @@ public class Cube {
 		cube.greenFace = cube.faces.get(GREEN);
 		return cube;
 	}
+	
+	public static Cube withFaces( Map<Color, Face> faces) {
+		Cube cube = new Cube();
+		cube.faces = faces;
+		return cube;
+	}
 
 	private void setupNeighbours() {
 		faces.get(GREEN).setupRight(faces.get(RED));
@@ -56,6 +62,7 @@ public class Cube {
 
 	public void turnRightClock() {
 		doMove(new FaceMove(GREEN,RIGHT),new FaceMove(YELLOW,RIGHT), new FaceMove(BLUE,LEFT), new FaceMove(WHITE,RIGHT));
+		faces.get(RED).rotateClockwise();
 	}
 
 	public void turnRightAnti() {
