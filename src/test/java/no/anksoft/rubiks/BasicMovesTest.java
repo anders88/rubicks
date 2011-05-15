@@ -146,6 +146,20 @@ public class BasicMovesTest {
 		
 	}
 	
+	@Test
+	public void turnBackAntiClockwise() throws Exception {
+		cube.turnBackAnti();
+		
+		assertFaceContent(GREEN, GREEN);
+		assertFaceContent(BLUE, BLUE);
+		
+		assertFaceContent(WHITE, ORANGE, UP_LEFT, UP_MIDDLE, UP_RIGHT);
+		assertFaceContent(RED, WHITE, UP_RIGHT, RIGHT, DOWN_RIGHT);
+		assertFaceContent(YELLOW, RED, DOWN_LEFT, DOWN_MIDDLE, DOWN_RIGHT);
+		assertFaceContent(ORANGE, YELLOW, UP_LEFT, LEFT, DOWN_LEFT);
+		
+	}
+	
 	
 	@Test
 	public void twoMovesTest() throws Exception {
