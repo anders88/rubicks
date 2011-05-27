@@ -110,6 +110,10 @@ public class Face {
 	public void rotateClockwise() {
 		
 	}
+
+	public void rotateAnti() {
+		
+	}
 	
 	
 

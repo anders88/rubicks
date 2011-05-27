@@ -67,6 +67,7 @@ public class Cube {
 
 	public void turnRightAnti() {
 		doMove(new FaceMove(GREEN,RIGHT),new FaceMove(WHITE,RIGHT),new FaceMove(BLUE,LEFT),new FaceMove(YELLOW,RIGHT));
+		faces.get(RED).rotateAnti();
 	}
 
 	public void turnLeftClock() {

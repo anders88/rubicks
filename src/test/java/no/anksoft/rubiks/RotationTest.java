@@ -28,10 +28,22 @@ public class RotationTest {
 	public void rightTurnClockShoudRotateRed() throws Exception {
 		cube.turnRightClock();
 		verify(faces.get(Color.RED)).rotateClockwise();
-		verifyNoRotation(Color.RED);
+		verifyNoRotationClockwise(Color.RED);
+		verifyNoRotationAnti(null);
 	}
+	
+	@Test
+	public void rightTurnCCShouldCCRotateRed() throws Exception {
+		cube.turnRightAnti();
+		verify(faces.get(Color.RED)).rotateAnti();
+		verifyNoRotationClockwise(null);
+		verifyNoRotationAnti(Color.RED);
+	}
+	
 
-	private void verifyNoRotation(Color exceptColor) {
+	
+	
+	private void verifyNoRotationClockwise(Color exceptColor) {
 		
 		for (Color color : Color.values()) {
 			if (color == exceptColor) {
@@ -40,6 +52,16 @@ public class RotationTest {
 			verify(faces.get(color),never()).rotateClockwise();
 		}
 	}
-	
+
+	private void verifyNoRotationAnti(Color exceptColor) {
+		
+		for (Color color : Color.values()) {
+			if (color == exceptColor) {
+				continue;
+			}
+			verify(faces.get(color),never()).rotateAnti();
+		}
+	}
+
 	
 }
