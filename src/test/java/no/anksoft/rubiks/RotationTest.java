@@ -40,6 +40,88 @@ public class RotationTest {
 		verifyNoRotationAnti(Color.RED);
 	}
 	
+	
+	@Test
+	public void leftClockShouldRotateOrange() throws Exception {
+		cube.turnLeftClock();
+		verify(faces.get(Color.ORANGE)).rotateClockwise();
+		verifyNoRotationClockwise(Color.ORANGE);
+		verifyNoRotationAnti(null);
+	}
+	
+	@Test
+	public void leftAntiShouldRotateOrange() throws Exception {
+		cube.turnLeftAnti();
+		verify(faces.get(Color.ORANGE)).rotateAnti();
+		verifyNoRotationClockwise(null);
+		verifyNoRotationAnti(Color.ORANGE);
+	}
+	
+	@Test
+	public void upClockShouldRotateWhite() throws Exception {
+		cube.turnUpClock();
+		verify(faces.get(Color.WHITE)).rotateClockwise();
+		verifyNoRotationClockwise(Color.WHITE);
+		verifyNoRotationAnti(null);
+	}
+	
+	@Test
+	public void upAntiShouldRotateWhite() throws Exception {
+		cube.turnUpAnti();
+		verify(faces.get(Color.WHITE)).rotateAnti();
+		verifyNoRotationClockwise(null);
+		verifyNoRotationAnti(Color.WHITE);
+	}
+	
+	@Test
+	public void downClockShouldRotateYellow() throws Exception {
+		cube.turnDownClock();
+		verify(faces.get(Color.YELLOW)).rotateClockwise();
+		verifyNoRotationClockwise(Color.YELLOW);
+		verifyNoRotationAnti(null);
+	}
+	
+	@Test
+	public void downAntiShouldRotateYellow() throws Exception {
+		cube.turnDownAnti();
+		verify(faces.get(Color.YELLOW)).rotateAnti();
+		verifyNoRotationClockwise(null);
+		verifyNoRotationAnti(Color.YELLOW);
+	}
+	
+	@Test
+	public void frontClockShouldRotateGreen() throws Exception {
+		cube.turnFrontClock();
+		verify(faces.get(Color.GREEN)).rotateClockwise();
+		verifyNoRotationClockwise(Color.GREEN);
+		verifyNoRotationAnti(null);
+	}
+	
+	@Test
+	public void frontAntiShouldRotateGreen() throws Exception {
+		cube.turnFrontAnti();
+		verify(faces.get(Color.GREEN)).rotateAnti();
+		verifyNoRotationClockwise(null);
+		verifyNoRotationAnti(Color.GREEN);
+	}
+	
+	@Test
+	public void backClockShouldRotateBlue() throws Exception {
+		cube.turnBackClock();
+		verify(faces.get(Color.BLUE)).rotateClockwise();
+		verifyNoRotationClockwise(Color.BLUE);
+		verifyNoRotationAnti(null);
+	}
+	
+	
+	@Test
+	public void backAntiShouldRotateBlue() throws Exception {
+		cube.turnBackAnti();
+		verify(faces.get(Color.BLUE)).rotateAnti();
+		verifyNoRotationClockwise(null);
+		verifyNoRotationAnti(Color.BLUE);
+	}
+	
 
 	
 	

@@ -27,6 +27,7 @@ public class Cube {
 	public static Cube withFaces( Map<Color, Face> faces) {
 		Cube cube = new Cube();
 		cube.faces = faces;
+		cube.greenFace = faces.get(GREEN);
 		return cube;
 	}
 
@@ -41,6 +42,7 @@ public class Cube {
 
 	public void turnUpClock() {
 		greenFace.turnUpClock();
+		faces.get(WHITE).rotateClockwise();
 	}
 
 	public Color cell(Color color, CellPosition cellPosition) {
@@ -49,15 +51,17 @@ public class Cube {
 
 	public void turnDownClock() {
 		greenFace.turnDownClock();
-		
+		faces.get(YELLOW).rotateClockwise();
 	}
 
 	public void turnUpAnti() {
 		greenFace.turnUpAnti();
+		faces.get(WHITE).rotateAnti();
 	}
 
 	public void turnDownAnti() {
 		greenFace.turnDownAnti();
+		faces.get(YELLOW).rotateAnti();
 	}
 
 	public void turnRightClock() {
@@ -72,28 +76,32 @@ public class Cube {
 
 	public void turnLeftClock() {
 		doMove(new FaceMove(GREEN,LEFT),new FaceMove(WHITE,LEFT),new FaceMove(BLUE,RIGHT),new FaceMove(YELLOW,LEFT));
+		faces.get(ORANGE).rotateClockwise();
 	}
 
 	public void turnLeftAnti() {
 		doMove(new FaceMove(GREEN,LEFT),new FaceMove(YELLOW,LEFT),new FaceMove(BLUE,RIGHT),new FaceMove(WHITE,LEFT));
-		
+		faces.get(ORANGE).rotateAnti();
 	}
 
 	public void turnFrontClock() {
 		doMove(new FaceMove(WHITE,DOWN_MIDDLE),new FaceMove(ORANGE,RIGHT),new FaceMove(YELLOW,UP_MIDDLE),new FaceMove(RED,LEFT));
-		
+		greenFace.rotateClockwise();
 	}
 
 	public void turnFrontAnti() {
 		doMove(new FaceMove(WHITE,DOWN_MIDDLE),new FaceMove(RED,LEFT),new FaceMove(YELLOW,UP_MIDDLE),new FaceMove(ORANGE,RIGHT));
+		greenFace.rotateAnti();
 	}
 
 	public void turnBackClock() {
 		doMove(new FaceMove(WHITE,UP_MIDDLE),new FaceMove(RED, RIGHT),new FaceMove(YELLOW, DOWN_MIDDLE),new FaceMove(ORANGE, LEFT));
+		faces.get(BLUE).rotateClockwise();
 	}
 
 	public void turnBackAnti() {
 		doMove(new FaceMove(WHITE,UP_MIDDLE),new FaceMove(ORANGE, LEFT),new FaceMove(YELLOW, DOWN_MIDDLE),new FaceMove(RED, RIGHT));
+		faces.get(BLUE).rotateAnti();
 	}
 
 	private void doMove(FaceMove... faceMoves) {
