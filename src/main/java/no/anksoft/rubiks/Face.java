@@ -1,7 +1,10 @@
 package no.anksoft.rubiks;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
+
+import static no.anksoft.rubiks.CellPosition.*; 
 
 public class Face {
 
@@ -93,6 +96,12 @@ public class Face {
 		return face;
 	}
 	
+	public static Face withCells(Color color, Map<CellPosition,Color> cells) {
+		Face face = new Face(color);
+		face.cells = cells;
+		return face;
+	}
+	
 	public void update(CellPosition cellPosition, Color newValue) {
 		cells.put(cellPosition, newValue);
 	}
@@ -108,7 +117,17 @@ public class Face {
 	}
 
 	public void rotateClockwise() {
+		Map<CellPosition, Color> newCells = new Hashtable<CellPosition, Color>();
+		newCells.put(UP_RIGHT, cell(UP_LEFT));
+		newCells.put(RIGHT, cell(UP_MIDDLE));
+		newCells.put(DOWN_RIGHT, cell(UP_RIGHT));
+		newCells.put(UP_MIDDLE, cell(LEFT));
+		newCells.put(DOWN_MIDDLE, cell(RIGHT));
+		newCells.put(UP_LEFT, cell(DOWN_LEFT));
+		newCells.put(LEFT, cell(DOWN_MIDDLE));
+		newCells.put(DOWN_LEFT, cell(DOWN_RIGHT));
 		
+		cells = newCells;
 	}
 
 	public void rotateAnti() {
