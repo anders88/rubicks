@@ -131,7 +131,17 @@ public class Face {
 	}
 
 	public void rotateAnti() {
+		Map<CellPosition, Color> newCells = new Hashtable<CellPosition, Color>();
+		newCells.put(DOWN_LEFT, cell(UP_LEFT));
+		newCells.put(LEFT, cell(UP_MIDDLE));
+		newCells.put(UP_LEFT, cell(UP_RIGHT));
+		newCells.put(DOWN_MIDDLE, cell(LEFT));
+		newCells.put(UP_MIDDLE, cell(RIGHT));
+		newCells.put(DOWN_RIGHT, cell(DOWN_LEFT));
+		newCells.put(RIGHT, cell(DOWN_MIDDLE));
+		newCells.put(UP_RIGHT, cell(DOWN_RIGHT));
 		
+		cells = newCells;
 	}
 	
 	
