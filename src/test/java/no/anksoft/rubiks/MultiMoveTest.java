@@ -65,7 +65,10 @@ public class MultiMoveTest {
 		assertThat(cube.cell(ORANGE, RIGHT)).isEqualTo(ORANGE);
 		assertThat(cube.cell(ORANGE, DOWN_RIGHT)).isEqualTo(ORANGE);
 
+		
+
 		assertFaceContent(YELLOW, BLUE, UP_RIGHT,RIGHT,DOWN_RIGHT);
+		assertFaceContent(WHITE, GREEN, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
 	}
 	
 	@Test
@@ -111,6 +114,7 @@ public class MultiMoveTest {
 		assertThat(cube.cell(YELLOW,RIGHT)).isEqualTo(YELLOW);
 		assertThat(cube.cell(YELLOW,DOWN_RIGHT)).isEqualTo(YELLOW);
 		
+		assertFaceContent(ORANGE, YELLOW, DOWN_LEFT,DOWN_MIDDLE,DOWN_RIGHT);
 		assertFaceContent(RED, WHITE, UP_LEFT,LEFT,DOWN_LEFT);
 		
 	}
