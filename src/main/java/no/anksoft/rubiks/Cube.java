@@ -40,18 +40,20 @@ public class Cube {
 		
 	}
 
-	public void turnUpClock() {
+	public Cube turnUpClock() {
 		greenFace.turnUpClock();
 		faces.get(WHITE).rotateClockwise();
+		return this;
 	}
 
 	public Color cell(Color color, CellPosition cellPosition) {
 		return faces.get(color).cell(cellPosition);
 	}
 
-	public void turnDownClock() {
+	public Cube turnDownClock() {
 		greenFace.turnDownClock();
 		faces.get(YELLOW).rotateClockwise();
+		return this;
 	}
 
 	public void turnUpAnti() {
@@ -59,49 +61,58 @@ public class Cube {
 		faces.get(WHITE).rotateAnti();
 	}
 
-	public void turnDownAnti() {
+	public Cube turnDownAnti() {
 		greenFace.turnDownAnti();
 		faces.get(YELLOW).rotateAnti();
+		return this;
 	}
 
-	public void turnRightClock() {
+	public Cube turnRightClock() {
 		doMove(new FaceMove(GREEN,RIGHT),new FaceMove(YELLOW,RIGHT), new FaceMove(BLUE,LEFT), new FaceMove(WHITE,RIGHT));
 		faces.get(RED).rotateClockwise();
+		return this;
 	}
 
-	public void turnRightAnti() {
+	public Cube turnRightAnti() {
 		doMove(new FaceMove(GREEN,RIGHT),new FaceMove(WHITE,RIGHT),new FaceMove(BLUE,LEFT),new FaceMove(YELLOW,RIGHT));
 		faces.get(RED).rotateAnti();
+		return this;
 	}
 
-	public void turnLeftClock() {
+	public Cube turnLeftClock() {
 		doMove(new FaceMove(GREEN,LEFT),new FaceMove(WHITE,LEFT),new FaceMove(BLUE,RIGHT),new FaceMove(YELLOW,LEFT));
 		faces.get(ORANGE).rotateClockwise();
+		return this;
 	}
 
-	public void turnLeftAnti() {
+	public Cube turnLeftAnti() {
 		doMove(new FaceMove(GREEN,LEFT),new FaceMove(YELLOW,LEFT),new FaceMove(BLUE,RIGHT),new FaceMove(WHITE,LEFT));
 		faces.get(ORANGE).rotateAnti();
+		return this;
 	}
 
-	public void turnFrontClock() {
+	public Cube turnFrontClock() {
 		doMove(new FaceMove(WHITE,DOWN_MIDDLE),new FaceMove(ORANGE,RIGHT),new FaceMove(YELLOW,UP_MIDDLE),new FaceMove(RED,LEFT));
 		greenFace.rotateClockwise();
+		return this;
 	}
 
-	public void turnFrontAnti() {
+	public Cube turnFrontAnti() {
 		doMove(new FaceMove(WHITE,DOWN_MIDDLE),new FaceMove(RED,LEFT),new FaceMove(YELLOW,UP_MIDDLE),new FaceMove(ORANGE,RIGHT));
 		greenFace.rotateAnti();
+		return this;
 	}
 
-	public void turnBackClock() {
+	public Cube turnBackClock() {
 		doMove(new FaceMove(WHITE,UP_MIDDLE),new FaceMove(RED, RIGHT),new FaceMove(YELLOW, DOWN_MIDDLE),new FaceMove(ORANGE, LEFT));
 		faces.get(BLUE).rotateClockwise();
+		return this;
 	}
 
-	public void turnBackAnti() {
+	public Cube turnBackAnti() {
 		doMove(new FaceMove(WHITE,UP_MIDDLE),new FaceMove(ORANGE, LEFT),new FaceMove(YELLOW, DOWN_MIDDLE),new FaceMove(RED, RIGHT));
 		faces.get(BLUE).rotateAnti();
+		return this;
 	}
 
 	private void doMove(FaceMove... faceMoves) {
@@ -131,5 +142,26 @@ public class Cube {
 		}
 		return result;
 	}
+	
 
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Cube)) {
+			return false;
+		}
+		Cube other = (Cube) obj;
+		for (Color color : Color.values()) {
+			Face face = faces.get(color);
+			Face otherFace = other.faces.get(color); 
+			if (!face.equals(otherFace)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	@Override
+	public int hashCode() {
+		return greenFace.hashCode();
+	}
 }

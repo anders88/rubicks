@@ -8,44 +8,33 @@ public class MoveGenerator {
 		this.cube = cube;
 	}
 
-	public void doMove(Moves move) {
+	public Cube doMove(Moves move) {
 		switch (move) {
 		case RIGHT_CLOCK:
-			cube.turnRightClock();
-			return;
+			return cube.turnRightClock();
 		case RIGHT_ANTI:
-			cube.turnRightAnti();
-			return;
+			return cube.turnRightAnti();
 		case LEFT_CLOCK:
-			cube.turnLeftClock();
-			return;
+			return cube.turnLeftClock();
 		case LEFT_ANTI:
-			cube.turnLeftAnti();
-			return;
+			return cube.turnLeftAnti();
 		case UP_CLOCK:
-			cube.turnUpClock();
-			return;
+			return cube.turnUpClock();
 		case UP_ANTI:
 			cube.turnUpAnti();
-			return;
+			return cube;
 		case DOWN_CLOCK:
-			cube.turnDownClock();
-			return;
+			return cube.turnDownClock();
 		case DOWN_ANTI:
-			cube.turnDownAnti();
-			return;
+			return cube.turnDownAnti();
 		case FRONT_CLOCK:
-			cube.turnFrontClock();
-			return;
+			return cube.turnFrontClock();
 		case FRONT_ANTI:
-			cube.turnFrontAnti();
-			return;
+			return cube.turnFrontAnti();
 		case BACK_CLOCK:
-			cube.turnBackClock();
-			return;
+			return cube.turnBackClock();
 		case BACK_ANTI:
-			cube.turnBackAnti();
-			return;
+			return cube.turnBackAnti();
 		}
 		throw new IllegalArgumentException("Unsupported move " + move);
 

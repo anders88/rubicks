@@ -60,4 +60,18 @@ public class FaceTest {
 		assertThat(face.cell(UP_RIGHT)).isEqualTo(BLUE);
 		
 	}
+	
+	@Test
+	public void sameFacesShouldBeEqual() throws Exception {
+		Map<CellPosition, Color> cells = new Hashtable<CellPosition, Color>();
+		cells.put(UP_LEFT,GREEN);
+		cells.put(UP_MIDDLE, YELLOW);
+		cells.put(UP_RIGHT, WHITE);
+		cells.put(LEFT,BLUE);
+		cells.put(RIGHT,RED);
+		cells.put(DOWN_LEFT,ORANGE);
+		cells.put(DOWN_MIDDLE,ORANGE);
+		cells.put(DOWN_RIGHT,BLUE);
+		assertThat(Face.finished(GREEN)).isEqualTo(Face.finished(GREEN)).isNotEqualTo(Face.withCells(GREEN, cells ));
+	}
 }

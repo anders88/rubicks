@@ -61,8 +61,8 @@ public class Face {
 	}
 	
 	private void turnDownAnti(Face starter) {
-		Color upLeft = left.cells.get(CellPosition.DOWN_LEFT);
 		Color upMiddle = left.cells.get(CellPosition.DOWN_MIDDLE);
+		Color upLeft = left.cells.get(CellPosition.DOWN_LEFT);
 		Color upRight = left.cells.get(CellPosition.DOWN_RIGHT);
 		
 		if (left != starter) left.turnDownAnti(starter);
@@ -144,6 +144,24 @@ public class Face {
 		cells = newCells;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Face)) {
+			return false;
+		}
+		Face other = (Face) obj;
+		if (color != other.color) return false;
+		for (CellPosition cellPosition : CellPosition.values()) {
+			if (cell(cellPosition) != other.cell(cellPosition)) {
+				return false;
+			}
+		}
+		return true;
+	}
 	
+	@Override
+	public int hashCode() {
+		return color.hashCode() + cell(UP_LEFT).hashCode();
+	}
 
 }
