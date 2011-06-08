@@ -1,16 +1,25 @@
 package no.anksoft.rubiks;
 
-import static no.anksoft.rubiks.Color.*;
-import static no.anksoft.rubiks.CellPosition.*;
+import static no.anksoft.rubiks.CellPosition.DOWN_MIDDLE;
+import static no.anksoft.rubiks.CellPosition.LEFT;
+import static no.anksoft.rubiks.CellPosition.RIGHT;
+import static no.anksoft.rubiks.CellPosition.UP_MIDDLE;
+import static no.anksoft.rubiks.Color.BLUE;
+import static no.anksoft.rubiks.Color.GREEN;
+import static no.anksoft.rubiks.Color.ORANGE;
+import static no.anksoft.rubiks.Color.RED;
+import static no.anksoft.rubiks.Color.WHITE;
+import static no.anksoft.rubiks.Color.YELLOW;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-public class Cube {
+
+public class Cube implements Cloneable {
 	
-	private Map<Color, Face> faces = new HashMap<Color, Face>();
+	private Hashtable<Color, Face> faces = new Hashtable<Color, Face>();
 	private Face greenFace;
 
 	public static Cube finished() {
@@ -26,7 +35,8 @@ public class Cube {
 	
 	public static Cube withFaces( Map<Color, Face> faces) {
 		Cube cube = new Cube();
-		cube.faces = faces;
+		cube.faces = new Hashtable<Color, Face>();
+		cube.faces.putAll(faces);
 		cube.greenFace = faces.get(GREEN);
 		return cube;
 	}
@@ -163,5 +173,14 @@ public class Cube {
 	@Override
 	public int hashCode() {
 		return greenFace.hashCode();
+	}
+	
+	@Override
+	public Cube clone() {
+		Cube cube = new Cube();
+		cube.faces = new Hashtable<Color, Face>();
+		cube.faces.putAll(faces);
+		cube.greenFace = cube.faces.get(GREEN);
+		return cube;
 	}
 }

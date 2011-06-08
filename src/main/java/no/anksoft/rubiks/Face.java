@@ -1,14 +1,20 @@
 package no.anksoft.rubiks;
 
-import java.util.HashMap;
+import static no.anksoft.rubiks.CellPosition.DOWN_LEFT;
+import static no.anksoft.rubiks.CellPosition.DOWN_MIDDLE;
+import static no.anksoft.rubiks.CellPosition.DOWN_RIGHT;
+import static no.anksoft.rubiks.CellPosition.LEFT;
+import static no.anksoft.rubiks.CellPosition.RIGHT;
+import static no.anksoft.rubiks.CellPosition.UP_LEFT;
+import static no.anksoft.rubiks.CellPosition.UP_MIDDLE;
+import static no.anksoft.rubiks.CellPosition.UP_RIGHT;
+
 import java.util.Hashtable;
 import java.util.Map;
 
-import static no.anksoft.rubiks.CellPosition.*; 
+public class Face implements Cloneable {
 
-public class Face {
-
-	private Map<CellPosition, Color> cells = new HashMap<CellPosition, Color>();
+	private Hashtable<CellPosition, Color> cells = new Hashtable<CellPosition, Color>();
 	private Face right;
 	private Face left;
 	private Color color;
@@ -98,7 +104,8 @@ public class Face {
 	
 	public static Face withCells(Color color, Map<CellPosition,Color> cells) {
 		Face face = new Face(color);
-		face.cells = cells;
+		face.cells = new Hashtable<CellPosition, Color>();
+		face.cells.putAll(cells);
 		return face;
 	}
 	
@@ -117,7 +124,7 @@ public class Face {
 	}
 
 	public void rotateClockwise() {
-		Map<CellPosition, Color> newCells = new Hashtable<CellPosition, Color>();
+		Hashtable<CellPosition, Color> newCells = new Hashtable<CellPosition, Color>();
 		newCells.put(UP_RIGHT, cell(UP_LEFT));
 		newCells.put(RIGHT, cell(UP_MIDDLE));
 		newCells.put(DOWN_RIGHT, cell(UP_RIGHT));
@@ -131,7 +138,7 @@ public class Face {
 	}
 
 	public void rotateAnti() {
-		Map<CellPosition, Color> newCells = new Hashtable<CellPosition, Color>();
+		Hashtable<CellPosition, Color> newCells = new Hashtable<CellPosition, Color>();
 		newCells.put(DOWN_LEFT, cell(UP_LEFT));
 		newCells.put(LEFT, cell(UP_MIDDLE));
 		newCells.put(UP_LEFT, cell(UP_RIGHT));
@@ -162,6 +169,15 @@ public class Face {
 	@Override
 	public int hashCode() {
 		return color.hashCode() + cell(UP_LEFT).hashCode();
+	}
+	
+	@Override
+	protected Face clone() {
+		Face cloned = new Face(color);
+		cloned.cells = new Hashtable<CellPosition, Color>();
+		cloned.cells.putAll(cells);
+		// TODO Setup right and left
+		return cloned;
 	}
 
 }

@@ -1,12 +1,25 @@
 package no.anksoft.rubiks;
 
+import static no.anksoft.rubiks.CellPosition.DOWN_LEFT;
+import static no.anksoft.rubiks.CellPosition.DOWN_MIDDLE;
+import static no.anksoft.rubiks.CellPosition.DOWN_RIGHT;
+import static no.anksoft.rubiks.CellPosition.LEFT;
+import static no.anksoft.rubiks.CellPosition.RIGHT;
+import static no.anksoft.rubiks.CellPosition.UP_LEFT;
+import static no.anksoft.rubiks.CellPosition.UP_MIDDLE;
+import static no.anksoft.rubiks.CellPosition.UP_RIGHT;
+import static no.anksoft.rubiks.Color.BLUE;
+import static no.anksoft.rubiks.Color.GREEN;
+import static no.anksoft.rubiks.Color.ORANGE;
+import static no.anksoft.rubiks.Color.RED;
+import static no.anksoft.rubiks.Color.WHITE;
+import static no.anksoft.rubiks.Color.YELLOW;
+import static org.fest.assertions.Assertions.assertThat;
+
 import java.util.Hashtable;
 import java.util.Map;
 
 import org.junit.Test;
-import static no.anksoft.rubiks.Color.*;
-import static no.anksoft.rubiks.CellPosition.*;
-import static org.fest.assertions.Assertions.assertThat;
 
 public class FaceTest {
 	@Test
@@ -73,5 +86,23 @@ public class FaceTest {
 		cells.put(DOWN_MIDDLE,ORANGE);
 		cells.put(DOWN_RIGHT,BLUE);
 		assertThat(Face.finished(GREEN)).isEqualTo(Face.finished(GREEN)).isNotEqualTo(Face.withCells(GREEN, cells ));
+	}
+	
+	@Test
+	public void shouldClone() throws Exception {
+		Map<CellPosition, Color> cells = new Hashtable<CellPosition, Color>();
+		cells.put(UP_LEFT,GREEN);
+		cells.put(UP_MIDDLE, YELLOW);
+		cells.put(UP_RIGHT, WHITE);
+		cells.put(LEFT,BLUE);
+		cells.put(RIGHT,RED);
+		cells.put(DOWN_LEFT,ORANGE);
+		cells.put(DOWN_MIDDLE,ORANGE);
+		cells.put(DOWN_RIGHT,BLUE);
+		
+		Face face = Face.withCells(GREEN, cells);
+		Face clone = face.clone();
+		assertThat(clone != face).isTrue();
+		assertThat(clone).isEqualTo(face);
 	}
 }
