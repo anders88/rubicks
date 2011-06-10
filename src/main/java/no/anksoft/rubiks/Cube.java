@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class Cube implements Cloneable {
+public class Cube implements Cloneable, FaceOwner {
 	
 	private Hashtable<Color, Face> faces = new Hashtable<Color, Face>();
 	private Face greenFace;
@@ -25,15 +25,14 @@ public class Cube implements Cloneable {
 	public static Cube finished() {
 		Cube cube = new Cube();
 		for (Color color : Color.values()) {
-			Face face = Face.finished(color);
+			Face face = Face.finished(color,cube);
 			cube.faces.put(color,face);
 		}
-		cube.setupNeighbours();
 		cube.greenFace = cube.faces.get(GREEN);
 		return cube;
 	}
 	
-	public static Cube withFaces( Map<Color, Face> faces) {
+	public static Cube withFaces(Map<Color, Face> faces) {
 		Cube cube = new Cube();
 		cube.faces = new Hashtable<Color, Face>();
 		cube.faces.putAll(faces);
@@ -41,14 +40,6 @@ public class Cube implements Cloneable {
 		return cube;
 	}
 
-	private void setupNeighbours() {
-		faces.get(GREEN).setupRight(faces.get(RED));
-		faces.get(RED).setupRight(faces.get(BLUE));
-		faces.get(BLUE).setupRight(faces.get(ORANGE));
-		faces.get(ORANGE).setupRight(faces.get(GREEN));
-		
-		
-	}
 
 	public Cube turnUpClock() {
 		greenFace.turnUpClock();
@@ -182,5 +173,10 @@ public class Cube implements Cloneable {
 		cube.faces.putAll(faces);
 		cube.greenFace = cube.faces.get(GREEN);
 		return cube;
+	}
+
+	@Override
+	public Face face(Color color) {
+		return faces.get(color);
 	}
 }

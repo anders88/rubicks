@@ -15,6 +15,7 @@ import static no.anksoft.rubiks.Color.RED;
 import static no.anksoft.rubiks.Color.WHITE;
 import static no.anksoft.rubiks.Color.YELLOW;
 import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
 import java.util.Hashtable;
 import java.util.Map;
@@ -22,9 +23,11 @@ import java.util.Map;
 import org.junit.Test;
 
 public class FaceTest {
+	private FaceOwner faceOwner = mock(FaceOwner.class);
+	private Map<CellPosition, Color> cells = new Hashtable<CellPosition, Color>();
+	
 	@Test
 	public void shouldRotateClockwise() throws Exception {
-		Map<CellPosition, Color> cells = new Hashtable<CellPosition, Color>();
 		cells.put(UP_LEFT,GREEN);
 		cells.put(UP_MIDDLE, YELLOW);
 		cells.put(UP_RIGHT, WHITE);
@@ -33,7 +36,7 @@ public class FaceTest {
 		cells.put(DOWN_LEFT,ORANGE);
 		cells.put(DOWN_MIDDLE,ORANGE);
 		cells.put(DOWN_RIGHT,BLUE);
-		Face face = Face.withCells(GREEN, cells );
+		Face face = Face.withCells(GREEN, cells, faceOwner );
 		
 		face.rotateClockwise();
 		
@@ -50,7 +53,6 @@ public class FaceTest {
 	
 	@Test
 	public void shouldRotateAntiClockwise() throws Exception {
-		Map<CellPosition, Color> cells = new Hashtable<CellPosition, Color>();
 		cells.put(UP_LEFT,GREEN);
 		cells.put(UP_MIDDLE, YELLOW);
 		cells.put(UP_RIGHT, WHITE);
@@ -59,7 +61,7 @@ public class FaceTest {
 		cells.put(DOWN_LEFT,ORANGE);
 		cells.put(DOWN_MIDDLE,ORANGE);
 		cells.put(DOWN_RIGHT,BLUE);
-		Face face = Face.withCells(GREEN, cells );
+		Face face = Face.withCells(GREEN, cells, faceOwner );
 		
 		face.rotateAnti();
 		
@@ -76,7 +78,6 @@ public class FaceTest {
 	
 	@Test
 	public void sameFacesShouldBeEqual() throws Exception {
-		Map<CellPosition, Color> cells = new Hashtable<CellPosition, Color>();
 		cells.put(UP_LEFT,GREEN);
 		cells.put(UP_MIDDLE, YELLOW);
 		cells.put(UP_RIGHT, WHITE);
@@ -85,12 +86,11 @@ public class FaceTest {
 		cells.put(DOWN_LEFT,ORANGE);
 		cells.put(DOWN_MIDDLE,ORANGE);
 		cells.put(DOWN_RIGHT,BLUE);
-		assertThat(Face.finished(GREEN)).isEqualTo(Face.finished(GREEN)).isNotEqualTo(Face.withCells(GREEN, cells ));
+		assertThat(Face.finished(GREEN,faceOwner)).isEqualTo(Face.finished(GREEN,faceOwner)).isNotEqualTo(Face.withCells(GREEN, cells,faceOwner ));
 	}
 	
 	@Test
 	public void shouldClone() throws Exception {
-		Map<CellPosition, Color> cells = new Hashtable<CellPosition, Color>();
 		cells.put(UP_LEFT,GREEN);
 		cells.put(UP_MIDDLE, YELLOW);
 		cells.put(UP_RIGHT, WHITE);
@@ -100,7 +100,7 @@ public class FaceTest {
 		cells.put(DOWN_MIDDLE,ORANGE);
 		cells.put(DOWN_RIGHT,BLUE);
 		
-		Face face = Face.withCells(GREEN, cells);
+		Face face = Face.withCells(GREEN, cells,faceOwner);
 		Face clone = face.clone();
 		assertThat(clone != face).isTrue();
 		assertThat(clone).isEqualTo(face);

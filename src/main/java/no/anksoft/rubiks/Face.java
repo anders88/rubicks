@@ -15,15 +15,15 @@ import java.util.Map;
 public class Face implements Cloneable {
 
 	private Hashtable<CellPosition, Color> cells = new Hashtable<CellPosition, Color>();
-	private Face right;
-	private Face left;
 	private Color color;
+	private final FaceOwner faceOwner;
 	
 	
 
-	private Face(Color color) {
+	private Face(Color color, FaceOwner faceOwner) {
 		super();
 		this.color = color;
+		this.faceOwner = faceOwner;
 	}
 
 	public void turnUpClock() {
@@ -41,13 +41,41 @@ public class Face implements Cloneable {
 	public void turnDownClock() {
 		turnDownClock(this);
 	}
+	
+	private Face right() {
+		switch (color) {
+		case GREEN:
+			return faceOwner.face(Color.RED);
+		case RED:
+			return faceOwner.face(Color.BLUE);
+		case BLUE:
+			return faceOwner.face(Color.ORANGE);
+		case ORANGE:
+			return faceOwner.face(Color.GREEN);
+		}
+		throw new IllegalArgumentException("Right not supported for " + color);
+	}
+	
+	private Face left() {
+		switch (color) {
+		case GREEN:
+			return faceOwner.face(Color.ORANGE);
+		case RED:
+			return faceOwner.face(Color.GREEN);
+		case BLUE:
+			return faceOwner.face(Color.RED);
+		case ORANGE:
+			return faceOwner.face(Color.BLUE);
+		}
+		throw new IllegalArgumentException("Left not supported for " + color);
+	}
 
 	private void turnUpClock(Face starter) {
-		Color upLeft = right.cells.get(CellPosition.UP_LEFT);
-		Color upMiddle = right.cells.get(CellPosition.UP_MIDDLE);
-		Color upRight = right.cells.get(CellPosition.UP_RIGHT);
+		Color upLeft = right().cells.get(CellPosition.UP_LEFT);
+		Color upMiddle = right().cells.get(CellPosition.UP_MIDDLE);
+		Color upRight = right().cells.get(CellPosition.UP_RIGHT);
 		
-		if (right != starter) right.turnUpClock(starter);
+		if (right() != starter) right().turnUpClock(starter);
 		
 		cells.put(CellPosition.UP_LEFT, upLeft);
 		cells.put(CellPosition.UP_MIDDLE, upMiddle);
@@ -55,11 +83,11 @@ public class Face implements Cloneable {
 	}
 	
 	private void turnUpAnti(Face starter) {
-		Color upLeft = left.cells.get(CellPosition.UP_LEFT);
-		Color upMiddle = left.cells.get(CellPosition.UP_MIDDLE);
-		Color upRight = left.cells.get(CellPosition.UP_RIGHT);
+		Color upLeft = left().cells.get(CellPosition.UP_LEFT);
+		Color upMiddle = left().cells.get(CellPosition.UP_MIDDLE);
+		Color upRight = left().cells.get(CellPosition.UP_RIGHT);
 		
-		if (left != starter) left.turnUpAnti(starter);
+		if (left() != starter) left().turnUpAnti(starter);
 		
 		cells.put(CellPosition.UP_LEFT, upLeft);
 		cells.put(CellPosition.UP_MIDDLE, upMiddle);
@@ -67,11 +95,11 @@ public class Face implements Cloneable {
 	}
 	
 	private void turnDownAnti(Face starter) {
-		Color upMiddle = left.cells.get(CellPosition.DOWN_MIDDLE);
-		Color upLeft = left.cells.get(CellPosition.DOWN_LEFT);
-		Color upRight = left.cells.get(CellPosition.DOWN_RIGHT);
+		Color upMiddle = left().cells.get(CellPosition.DOWN_MIDDLE);
+		Color upLeft = left().cells.get(CellPosition.DOWN_LEFT);
+		Color upRight = left().cells.get(CellPosition.DOWN_RIGHT);
 		
-		if (left != starter) left.turnDownAnti(starter);
+		if (left() != starter) left().turnDownAnti(starter);
 		
 		cells.put(CellPosition.DOWN_LEFT, upLeft);
 		cells.put(CellPosition.DOWN_MIDDLE, upMiddle);
@@ -79,11 +107,11 @@ public class Face implements Cloneable {
 	}
 	
 	private void turnDownClock(Face starter) {
-		Color downLeft = right.cells.get(CellPosition.DOWN_LEFT);
-		Color downMiddle = right.cells.get(CellPosition.DOWN_MIDDLE);
-		Color downRight = right.cells.get(CellPosition.DOWN_RIGHT);
+		Color downLeft = right().cells.get(CellPosition.DOWN_LEFT);
+		Color downMiddle = right().cells.get(CellPosition.DOWN_MIDDLE);
+		Color downRight = right().cells.get(CellPosition.DOWN_RIGHT);
 		
-		if (right != starter) right.turnDownClock(starter);
+		if (right() != starter) right().turnDownClock(starter);
 		
 		cells.put(CellPosition.DOWN_LEFT, downLeft);
 		cells.put(CellPosition.DOWN_MIDDLE, downMiddle);
@@ -94,16 +122,16 @@ public class Face implements Cloneable {
 		return cells.get(cellPosition);
 	}
 
-	public static Face finished(Color color) {
-		Face face = new Face(color);
+	public static Face finished(Color color, FaceOwner owner) {
+		Face face = new Face(color, owner);
 		for (CellPosition cellPosition : CellPosition.values()) {
 			face.cells.put(cellPosition, color);
 		}
 		return face;
 	}
 	
-	public static Face withCells(Color color, Map<CellPosition,Color> cells) {
-		Face face = new Face(color);
+	public static Face withCells(Color color, Map<CellPosition,Color> cells, FaceOwner faceOwner) {
+		Face face = new Face(color,faceOwner);
 		face.cells = new Hashtable<CellPosition, Color>();
 		face.cells.putAll(cells);
 		return face;
@@ -113,11 +141,6 @@ public class Face implements Cloneable {
 		cells.put(cellPosition, newValue);
 	}
 
-	public void setupRight(Face face) {
-		this.right = face;
-		face.left = this;
-	}
-	
 	@Override
 	public String toString() {
 		return "Face<" + color +">";
@@ -173,7 +196,7 @@ public class Face implements Cloneable {
 	
 	@Override
 	protected Face clone() {
-		Face cloned = new Face(color);
+		Face cloned = new Face(color,faceOwner);
 		cloned.cells = new Hashtable<CellPosition, Color>();
 		cloned.cells.putAll(cells);
 		// TODO Setup right and left
