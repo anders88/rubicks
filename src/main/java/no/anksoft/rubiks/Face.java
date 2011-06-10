@@ -176,7 +176,6 @@ public class Face implements Cloneable {
 		Face cloned = new Face(color);
 		cloned.cells = new Hashtable<CellPosition, Color>();
 		cloned.cells.putAll(cells);
-		// TODO Setup right and left
 		return cloned;
 	}
 

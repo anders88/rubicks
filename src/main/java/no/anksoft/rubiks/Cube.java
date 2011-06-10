@@ -179,7 +179,11 @@ public class Cube implements Cloneable {
 	public Cube clone() {
 		Cube cube = new Cube();
 		cube.faces = new Hashtable<Color, Face>();
-		cube.faces.putAll(faces);
+		for (Color color : Color.values()) {
+			Face face = faces.get(color);
+			cube.faces.put(color, face.clone());
+		}
+		cube.setupNeighbours();
 		cube.greenFace = cube.faces.get(GREEN);
 		return cube;
 	}
