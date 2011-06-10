@@ -196,10 +196,9 @@ public class Face implements Cloneable {
 	
 	@Override
 	protected Face clone() {
-		Face cloned = new Face(color,faceOwner);
+		Face cloned = new Face(color,faceOwner.cloneTarget());
 		cloned.cells = new Hashtable<CellPosition, Color>();
 		cloned.cells.putAll(cells);
-		// TODO Setup right and left
 		return cloned;
 	}
 

@@ -21,6 +21,7 @@ public class Cube implements Cloneable, FaceOwner {
 	
 	private Hashtable<Color, Face> faces = new Hashtable<Color, Face>();
 	private Face greenFace;
+	private FaceOwner cloneTarget;
 
 	public static Cube finished() {
 		Cube cube = new Cube();
@@ -167,10 +168,13 @@ public class Cube implements Cloneable, FaceOwner {
 	}
 	
 	@Override
-	public Cube clone() {
+	public synchronized Cube clone() {
 		Cube cube = new Cube();
+		cloneTarget = cube;
 		cube.faces = new Hashtable<Color, Face>();
-		cube.faces.putAll(faces);
+		for (Color color : Color.values()) {
+			cube.faces.put(color, faces.get(color).clone());
+		}
 		cube.greenFace = cube.faces.get(GREEN);
 		return cube;
 	}
@@ -178,5 +182,10 @@ public class Cube implements Cloneable, FaceOwner {
 	@Override
 	public Face face(Color color) {
 		return faces.get(color);
+	}
+
+	@Override
+	public FaceOwner cloneTarget() {
+		return cloneTarget;
 	}
 }
