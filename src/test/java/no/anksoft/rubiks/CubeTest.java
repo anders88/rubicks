@@ -1,3 +1,4 @@
+package no.anksoft.rubiks;
 import static org.fest.assertions.Assertions.assertThat;
 import no.anksoft.rubiks.Cube;
 

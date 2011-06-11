@@ -1,11 +1,25 @@
 package no.anksoft.rubiks;
 
+import java.util.Random;
+
 public class MoveGenerator {
 
 	private final Cube cube;
+	private Random random = new Random();
 
 	public MoveGenerator(Cube cube) {
 		this.cube = cube;
+	}
+	
+	public Cube doRandomMove() {
+		int randomMove = random.nextInt(Moves.values().length);
+		int moveno = 0;
+		for (Moves move : Moves.values()) {
+			if (randomMove == moveno++) {
+				return doMove(move);
+			}
+		}
+		throw new IllegalArgumentException("Unknown random move");
 	}
 
 	public Cube doMove(Moves move) {
