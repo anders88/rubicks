@@ -18,11 +18,9 @@ public class CubeSolverTest {
 	}
 	
 	@Test
-	public void shouldSolveFiveRandomMoves() throws Exception {
+	public void shouldSolveThreeRandomMoves() throws Exception {
 		Cube cube = Cube.finished();
 		MoveGenerator moveGenerator = new MoveGenerator(cube);
-		moveGenerator.doRandomMove();
-		moveGenerator.doRandomMove();
 		moveGenerator.doRandomMove();
 		moveGenerator.doRandomMove();
 		moveGenerator.doRandomMove();
